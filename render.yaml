@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: walko-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: ENVIRONMENT
+        value: prod
+      - key: DEBUG
+        value: "false"
+    healthCheckPath: /healthz
+
+databases:
+  - name: walko-db
+    plan: free
+
